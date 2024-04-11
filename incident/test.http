@@ -1,0 +1,19 @@
+### post corrective action
+
+GET     http://localhost:4004/odata/v4/employee-safety-incidents/CorrectiveActions
+Content-Type: application/json
+
+{
+    "name" : "test CA 3",
+    "description" : "desc CA 3",
+    "dueDate" : "2024-10-04T00:00:00.0Z",
+    "assignedTo" : "IDPL05",
+    "assignDate" : "2024-04-10T00:00:00.0Z"
+}
+
+###
+
+GET   http://localhost:4004/odata/v4/employee-safety-incidents/Incidents
+Content-Type: application/json
+
+{}

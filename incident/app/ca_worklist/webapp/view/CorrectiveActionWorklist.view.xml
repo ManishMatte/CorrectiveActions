@@ -1,0 +1,103 @@
+<mvc:View 	controllerName="caworklist.controller.CorrectiveActionWorklist"
+        xmlns="sap.ui.webc.main" 
+        xmlns:fiori="sap.ui.webc.fiori" 
+        xmlns:mvc="sap.ui.core.mvc" height="100%"
+        xmlns:m="sap.m"
+        xmlns:table="sap.ui.table"
+        xmlns:fb="sap.ui.comp.filterbar"
+        xmlns:core="sap.ui.core"
+>
+	<fiori:Page height="100%" width="100%">
+    <fb:FilterBar id="filterbar" showClearOnFB="true" clear="onClear" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem name="Name" label="Name" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <m:MultiComboBox selectedKeys="{gModel>/filter}"
+                            name="Name"
+                            items="{
+                                path: '/CorrectiveActions',
+                                templateShareable: true
+                            }"
+                        >
+                            <core:Item key="{name}" text="{name}"/>
+                        </m:MultiComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+        </fb:FilterBar>
+        <table:Table id="table"
+				rows="{/CorrectiveActions}"
+				selectionMode="MultiToggle"
+				paste="onPaste"
+				ariaLabelledBy="title">
+				<table:extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Corrective Actions"/>
+					</m:OverflowToolbar>
+				</table:extension>
+				<table:columns>
+					<table:Column width="11rem">
+						<m:Label text="Name" />
+						<table:template>
+							<m:Text text="{name}" wrapping="false" />
+						</table:template>
+					</table:Column>
+					<table:Column width="11rem">
+						<m:Label text="Incident ID" />
+						<table:template>
+							<m:Text text="{incident_ID}" wrapping="false" />
+						</table:template>
+					</table:Column>
+					<table:Column width="11rem">
+						<m:Label text="Description" />
+						<table:template>
+							<m:Text text="{description}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="6rem" hAlign="End">
+						<m:Label text="Due Date" />
+						<table:template>
+							<m:ObjectStatus text="{
+								path: 'dueDate',
+								formatter: '.formatDate'
+							}"/>
+						</table:template> 
+					</table:Column>
+                    <table:Column width="6rem" hAlign="End">
+						<m:Label text="Status" />
+						<table:template>
+							<m:Label text="{status}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="9rem">
+						<m:Label text="Assigned To" />
+						<table:template>
+							<m:ObjectStatus text="{assignedTo}"/>
+						</table:template>
+					</table:Column>
+                    <table:Column width="6rem" hAlign="End">
+						<m:Label text="Assigned Date" />
+						<table:template>
+							<m:Label text="{
+								path: 'assignDate',
+								formatter: '.formatDate'
+							}" />
+						</table:template>
+					</table:Column>
+					<table:Column width="6rem" hAlign="End">
+						<m:Label text="Delete CA" />
+						<table:template>
+							<Button click="onDelete" design="Negative" icon="sap-icon://delete"></Button>
+						</table:template>
+					</table:Column>
+				</table:columns>
+			</table:Table>
+		<fiori:footer>
+			<fiori:Bar design="Footer">
+				<fiori:endContent>
+					<Button text="Create CA" design="Positive" click=".onClickCreate" />
+				</fiori:endContent>
+			</fiori:Bar>
+		</fiori:footer>
+	</fiori:Page>
+</mvc:View>

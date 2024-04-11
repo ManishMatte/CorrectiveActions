@@ -1,0 +1,79 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog showHeader="false"
+		id="mainDialog">
+		 <content>
+			<f:SimpleForm 
+					editable="true"
+					layout="ColumnLayout"
+					title="Corrective Action"
+					columnsM="2"
+
+					columnsL="2"
+					columnsXL="2">
+					<f:content>
+						<Label text="Name" />
+						<Input required="true" change="onChange" value="{gModel>/payload/name}" />
+						<Label text="Incident ID" />
+						<ComboBox
+							value="{gModel>/payload/incident_ID}"
+                            items="{
+                                path: '/Incidents'
+                            }">
+                            <core:Item key="{ID}" text="{ID}" />
+                        </ComboBox>
+						<Label text="Description" />
+						<Input value="{gModel>/payload/description}"/>
+						<Label text="Due Date" />
+						<DatePicker
+                        placeholder="Enter Date"
+                        change="handleChange"
+                        class="sapUiSmallMarginBottom"
+                        showFooter="true"
+                        value="{
+							constraints: {V4: true},
+							path : 'gModel>/payload/dueDate',
+							type: 'sap.ui.model.odata.type.DateTimeOffset'}"/>
+                        <Label text="Assigned To" />
+						<Input value="{gModel>/payload/assignedTo}"/>
+                        <Label text="Assigned Date" />
+						<DatePicker
+                        placeholder="Enter Date"
+                        change="handleChange"
+                        class="sapUiSmallMarginBottom"
+                        showFooter="true"
+                        value="{
+							constraints: {V4: true},
+							path : 'gModel>/payload/assignDate',
+							type: 'sap.ui.model.odata.type.DateTimeOffset'}"/>
+                        <Label text="Status" />
+						<ComboBox
+							value="{gModel>/payload/status}"
+							id="statusComboBox"
+                            items="{
+                                path: 'gModel>/status'
+                            }">
+                            <core:Item key="{gModel>text}" text="{gModel>text}" />
+                        </ComboBox>
+					</f:content>
+				</f:SimpleForm>
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+				<ToolbarSpacer />
+					<Button type="Accept"
+						text="Submit"
+						press=".onFragSubmit"
+						ariaHasPopup="Dialog" />
+					<Button type="Reject"
+							text="Cancel"
+							press=".onCancel" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Dialog>
+</core:FragmentDefinition>
